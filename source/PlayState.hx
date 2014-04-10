@@ -33,7 +33,7 @@ class PlayState extends FlxState
 		
 		if (FlxG.plugins.get(CameraMirror) == null)
 		{
-			mirror = new CameraMirror(FlxG.camera, 250, new ColorTransform(0.5, 0.5, 1));
+			mirror = new CameraMirror(FlxG.camera, 200, new ColorTransform(0.5, 0.5, 1), bgColor);
 			FlxG.plugins.add(mirror);
 		}
 		add(mirror.reflection);
@@ -43,7 +43,7 @@ class PlayState extends FlxState
 		player = new Player(100, 150);
 		add(player);
 		
-		//FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
+		FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
 		
 		
 		super.create();
@@ -64,5 +64,14 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+		if (FlxG.keys.pressed.LBRACKET)
+		{
+			mirror.setY(mirror.getY() - 1);
+		}
+		if (FlxG.keys.pressed.RBRACKET)
+		{
+			mirror.setY(mirror.getY() + 1);
+		}
+		
 	}	
 }
