@@ -33,11 +33,9 @@ class PlayState extends FlxState
 		
 		if (FlxG.plugins.get(CameraMirror) == null)
 		{
-			mirror = new CameraMirror(FlxG.camera, 100,  new ColorTransform(0.5, 0.5, 1));
+			mirror = new CameraMirror(FlxG.camera, 250, new ColorTransform(0.5, 0.5, 1));
 			FlxG.plugins.add(mirror);
 		}
-		
-		mirror.reflection.y = 200;
 		add(mirror.reflection);
 		
 		
@@ -45,7 +43,7 @@ class PlayState extends FlxState
 		player = new Player(100, 150);
 		add(player);
 		
-		FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
+		//FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
 		
 		
 		super.create();

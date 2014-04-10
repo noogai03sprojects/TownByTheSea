@@ -1,103 +1,21 @@
-//package;
-//import flash.display.BitmapData;
-//import flash.geom.ColorTransform;
-//import flash.geom.Matrix;
-//import flash.geom.Point;
-//import flash.geom.Rectangle;
-//import flixel.FlxCamera;
-//import flixel.FlxSprite;
-//import flixel.plugin.FlxPlugin;
-//
-///**
- //* ...
- //* @author ...
- //*/
-//class CameraMirror extends FlxPlugin 
-//{
-	//private var sourceCamera : FlxCamera;
-	//private var color : ColorTransform;
-	//private var y : Int;
-	//public var enabled : Bool;
-	//
-	//public var reflection : FlxSprite;
-	//private var tempBitmap : BitmapData;
-	//
-	//private var camRect : Rectangle;
-	//
-	//var zeroPoint : Point;
-	//
-	//public function new(source:FlxCamera, color:ColorTransform, y:Int) 
-	//{
-		//
-		//zeroPoint = new Point();
-		//FlxPlugin
-		//sourceCamera = source;
-		//this.color = color;
-		//this.y = y;
-		//
-		//reflection = new FlxSprite();
-		//reflection.y = y;
-		//reflection.scrollFactor.set(0, 0);
-		//reflection.makeGraphic(source.width, source.height, 0x0);
-		//
-		//tempBitmap = reflection.pixels;
-		//
-		//camRect = new Rectangle(0, y, source.width, source.height - y);
-		//
-		//super();
-		//var mat : Matrix = new Matrix
-	//}
-	//
-	//override public function update():Void 
-	//{
-		//tempBitmap.copyPixels(sourceCamera.buffer, camRect, zeroPoint);
-		//
-		//tempBitmap = flipBitmap(tempBitmap);
-		//
-		//reflection.pixels = tempBitmap;
-		//reflection.y = y;
-		//super.update();
-	//}
-	//
-	//function flipBitmap(source:BitmapData) : BitmapData
-	//{
-		//var output :BitmapData = new BitmapData(source.width, source.height, true, 0);
-		//
-		//var matrix : Matrix = new Matrix();
-		//matrix.scale(1, -1);
-		//matrix.translate(source.width, 1);
-		//
-		//output.draw(source, matrix, color);
-		//
-		//return output;
-	//}
-//}
 
 
-
-/**
- * FlxCameraMirror
- * -- Created as an example plugin for Flash Game Tips #14
- * 
- * @version 1.0 - 1st November 2011
- * @link http://www.photonstorm.com
- * @author Richard Davey / Photon Storm
-*/
 
 package;
 
-	import flash.display.BitmapData;
-	import flash.geom.ColorTransform;
-	import flash.geom.Matrix;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
-	import flixel.FlxBasic;
-	import flixel.FlxCamera;
-	import flixel.FlxSprite;
-	import flixel.plugin.FlxPlugin;
+import flash.display.BitmapData;
+import flash.geom.ColorTransform;
+import flash.geom.Matrix;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.plugin.FlxPlugin;
 
-	class CameraMirror extends FlxPlugin
-	{
+class CameraMirror extends FlxPlugin
+{
 		private var zeroPoint:Point;
 		private var tempBitmapData:BitmapData;
 		private static var camRect:Rectangle;
@@ -106,29 +24,47 @@ package;
 		public  var reflection:FlxSprite;
 		public  var shade:ColorTransform;
 		
-		public function new(source:FlxCamera, height:UInt, color:ColorTransform)
+		var height : Int;
+		
+		
+		/**
+		 * 
+		 * @param	source 		The camera to use as the source
+		 * @param	y			The y value of the top of the reflection (i.e. the y position to refect about)
+		 * @param	color		The colour transform to tint the reflection by (eg blue for water)
+		 * @param   height 		The height of the reflection. -1 means fill the bottom of the camera.
+		 */
+		public function new(source:FlxCamera, y:Int, color:ColorTransform, height: Int = -1)
 		{
+			
+			if (height == -1)
+			{
+				height = source.height - y;
+			}
+			
 			zeroPoint = new Point();
 			sourceCamera = source;
+			this.height = height;
 			
 			reflection = new FlxSprite();
 			reflection.makeGraphic(source.width, height, 0x0);
 			reflection.scrollFactor.x = 0;
 			reflection.scrollFactor.y = 0;
+			reflection.y = y;
 			
-			tempBitmapData = reflection.pixels;
+			//tempBitmapData = reflection.pixels;
+			//tempBitmapData = source.buffer;
 			
 			shade = color;
+			tempBitmapData = new BitmapData(source.width, height);
 			
-			camRect = new Rectangle(0, height, source.width, source.height - height);
-			
+			//camRect = new Rectangle(0, height, source.width, source.height - height);
+			camRect = new Rectangle(0, height, source.width, height);
 			super();
+			
+			//FlxG.state
 		}
 		
-		public function setHeight(height:UInt) : Void {
-			reflection.makeGraphic(sourceCamera.width, height, 0x0);
-			camRect = new Rectangle(0, sourceCamera.height - height, sourceCamera.width, height);
-		}
 		
 		override public function update():Void
 		{
@@ -161,5 +97,5 @@ package;
 			return output;
 		}
 		
-	}
+}
 
