@@ -27,7 +27,6 @@ class PlayState extends FlxState
 	{
 		bgColor = FlxColor.BEIGE;
 		
-		
 		potato = new FlxSprite(10, 100);
 		potato.loadGraphic("assets/images/potato.gif");
 		add(potato);
