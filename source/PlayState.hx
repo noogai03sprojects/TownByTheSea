@@ -63,6 +63,7 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
+		//FlxG.camera.
 		super.update();
 		if (FlxG.keys.pressed.LBRACKET)
 		{

@@ -13,6 +13,8 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.plugin.FlxPlugin;
+import flixel.util.FlxBitmapUtil;
+import flixel.util.FlxSpriteUtil;
 
 class CameraMirror extends FlxPlugin
 {
@@ -80,28 +82,33 @@ class CameraMirror extends FlxPlugin
 			
 			if (enabled)
 			{
-			reflection.y = Y;
-			height = sourceCamera.height - Y;
-			reflection.makeGraphic(sourceCamera.width, height);
-			tempBitmapData = new BitmapData(sourceCamera.width, height);
-			camRect = new Rectangle(0, sourceCamera.height - height * 2, sourceCamera.width, height);
+				reflection.y = Y;
+				height = sourceCamera.height - Y;
+				var temp:BitmapData = reflection.pixels;
+				//reflection.pixels = new BitmapData(sourceCamera.width, height);
+				//reflection.pixels.copyPixels(temp, temp.rect, zeroPoint);
+				//reflection.p
+				//reflection.makeGraphic(sourceCamera.width, height);
+				//reflection.pixels.draw(temp, null, shade);
+				tempBitmapData = new BitmapData(sourceCamera.width, height);
+				camRect = new Rectangle(0, sourceCamera.height - height * 2, sourceCamera.width, height);
 			}
-			
+			//TODO allow moving of mirror without turning reflection white
 		}
 		
 		override public function update():Void
 		{
 			if (enabled)
 			{
-			tempBitmapData.fillRect(tempBitmapData.rect, bgColor);
-			//	Copy the bottom part of the Camera buffer into our temp bitmap data
-			tempBitmapData.copyPixels(sourceCamera.buffer, camRect, zeroPoint);
+				tempBitmapData.fillRect(tempBitmapData.rect, bgColor);
+				//	Copy the bottom part of the Camera buffer into our temp bitmap data
+				tempBitmapData.copyPixels(sourceCamera.buffer, camRect, zeroPoint);
 			
-			//	Then flip it and apply the tint
-			tempBitmapData = flipBitmapData(tempBitmapData);
+				//	Then flip it and apply the tint
+				tempBitmapData = flipBitmapData(tempBitmapData);
 			
-			//	Set the sprite data to the flipped cam image
-			reflection.pixels = tempBitmapData;
+				//	Set the sprite data to the flipped cam image
+				reflection.pixels = tempBitmapData;
 			}
 		}
 		
@@ -124,5 +131,12 @@ class CameraMirror extends FlxPlugin
 			return output;
 		}
 		
+		override public function onResize(Width:Int, Height:Int):Void 
+		{
+			super.onResize(Width, Height);
+			reflection.makeGraphic(sourceCamera.width, height);
+			tempBitmapData = new BitmapData(sourceCamera.width, height);
+			camRect = new Rectangle(0, sourceCamera.height - height * 2, sourceCamera.width, height);
+		}
 }
 
