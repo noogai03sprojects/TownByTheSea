@@ -39,6 +39,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/data/data-goes-here.txt", __ASSET__assets_data_data_goes_here_txt);
 		type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/images/bricks.png", __ASSET__assets_images_bricks_png);
+		type.set ("assets/images/bricks.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/images/bricks.pyxel", __ASSET__assets_images_bricks_pyxel);
+		type.set ("assets/images/bricks.pyxel", Reflect.field (AssetType, "binary".toUpperCase ()));
+		className.set ("assets/images/collisiontiles.png", __ASSET__assets_images_collisiontiles_png);
+		type.set ("assets/images/collisiontiles.png", Reflect.field (AssetType, "image".toUpperCase ()));
+		className.set ("assets/images/collisiontiles.pyxel", __ASSET__assets_images_collisiontiles_pyxel);
+		type.set ("assets/images/collisiontiles.pyxel", Reflect.field (AssetType, "binary".toUpperCase ()));
 		className.set ("assets/images/images-go-here.txt", __ASSET__assets_images_images_go_here_txt);
 		type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/images/potato.gif", __ASSET__assets_images_potato_gif);
@@ -52,6 +60,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		#elseif html5
 		
 		addExternal("assets/data/data-goes-here.txt", "text", "assets/data/data-goes-here.txt");
+		addExternal("assets/images/bricks.png", "image", "assets/images/bricks.png");
+		addExternal("assets/images/bricks.pyxel", "binary", "assets/images/bricks.pyxel");
+		addExternal("assets/images/collisiontiles.png", "image", "assets/images/collisiontiles.png");
+		addExternal("assets/images/collisiontiles.pyxel", "binary", "assets/images/collisiontiles.pyxel");
 		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
 		addExternal("assets/images/potato.gif", "image", "assets/images/potato.gif");
 		addExternal("assets/music/music-goes-here.txt", "text", "assets/music/music-goes-here.txt");
@@ -622,6 +634,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 #elseif flash
 
 @:keep class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_images_bricks_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_bricks_pyxel extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_images_collisiontiles_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_collisiontiles_pyxel extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_potato_gif extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_music_music_goes_here_txt extends flash.utils.ByteArray { }
@@ -629,6 +645,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 #elseif html5
+
+
+
+
 
 
 

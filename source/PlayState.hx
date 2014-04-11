@@ -20,6 +20,8 @@ class PlayState extends FlxState
 	
 	var potato:FlxSprite;
 	
+	var level:Level;
+	
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -67,11 +69,16 @@ class PlayState extends FlxState
 		super.update();
 		if (FlxG.keys.pressed.LBRACKET)
 		{
-			mirror.setY(mirror.getY() - 1);
+			mirror.setY(mirror.getY() - 5);
 		}
 		if (FlxG.keys.pressed.RBRACKET)
 		{
-			mirror.setY(mirror.getY() + 1);
+			mirror.setY(mirror.getY() + 5);
+		}
+		
+		if (FlxG.keys.justPressed.END)
+		{
+			level.saveMap("testSave");
 		}
 		
 	}	

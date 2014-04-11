@@ -41,6 +41,7 @@ class CameraMirror extends FlxPlugin
 		public function new(source:FlxCamera, y:Int, color:ColorTransform, bgColor:Int = 0x0, height: Int = -1 )
 		{
 			
+			//var lol:Flx
 			if (height == -1)
 			{
 				height = source.height - y;
@@ -55,6 +56,7 @@ class CameraMirror extends FlxPlugin
 			reflection.scrollFactor.x = 0;
 			reflection.scrollFactor.y = 0;
 			reflection.y = y;
+			//reflection.mode
 			
 			//tempBitmapData = reflection.pixels;
 			//tempBitmapData = source.buffer;
@@ -101,8 +103,10 @@ class CameraMirror extends FlxPlugin
 			if (enabled)
 			{
 				tempBitmapData.fillRect(tempBitmapData.rect, bgColor);
+				
 				//	Copy the bottom part of the Camera buffer into our temp bitmap data
 				tempBitmapData.copyPixels(sourceCamera.buffer, camRect, zeroPoint);
+				//sourceCamera.buffer;
 			
 				//	Then flip it and apply the tint
 				tempBitmapData = flipBitmapData(tempBitmapData);
