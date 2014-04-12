@@ -1,9 +1,9 @@
 package;
 
-/**
- * ...
- * @author Noogai03
- */
+///**
+ //* ...
+ //* @author Noogai03
+ //*/
 class LevelData 
 {
 	public var collisionTileset:String = "";
@@ -15,4 +15,18 @@ class LevelData
 	//public var foregroundCSV:String = "";
 	
 	public var waterLevel:Float = 0;	
+	
+	public function new () {
+		
+	}
 }
+
+//typedef LevelData = { 
+	//var collisionTileset : String;
+	//var foregroundTileset: String;
+	//var backgroundTileset : String;
+	//var backgroundCSV: String;
+	//var collisionCSV : String; 
+	//var foregroundCSV:String;
+	//var waterLevel: Float; 
+	//}

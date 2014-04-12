@@ -7,9 +7,12 @@ import flixel.addons.tile.FlxTilemapExt;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.system.scaleModes.PixelPerfectScaleMode;
 import flixel.tile.FlxTilemap;
+import flixel.util.FlxColor;
+import flixel.util.FlxSpriteUtil;
 import haxe.Json;
 import flash.net.FileReference;
 import flash.net.FileFilter; 
@@ -44,6 +47,54 @@ class Level extends FlxGroup
 	
 	var levelData:LevelData;
 	
+	var reticle:FlxSprite;
+	var tilePreview : FlxSprite;
+	var currentLayer : Int = 0;
+	var selectedTile : Int = 0;
+	static inline var BACKGROUND = 0;
+	static inline var COLLISION = 1;
+	static inline var FOREGROUND = 2;
+	
+	public function initialize() : Void {
+		
+		collision = new FlxTilemapExt();
+		//collision.visible = false;
+		background = new FlxTilemap();
+		foreground = new FlxTilemap();
+		//background.visible = false;
+		collision.loadMap(Assets.getText("assets/data/collision.csv"), "assets/images/collisiontiles.png", 16, 16);
+		background.loadMap(Assets.getText("assets/data/background.csv"), "assets/images/bricks.png", 16, 16);
+		
+		FlxG.camera.zoom = 2;	
+		FlxG.camera.width = Std.int(FlxG.camera.width / 2);
+		FlxG.camera.height = Std.int(FlxG.camera.height / 2);
+		
+		player = new Player(100, 150);		
+		FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
+		
+		waterLevel = 200;
+		waterMonitor = new FlxObject(0, waterLevel);
+		
+		reticle = new FlxSprite(0, 0);
+		reticle.makeGraphic(16, 16, FlxColor.TRANSPARENT);
+		FlxSpriteUtil.drawRect(reticle, 0, 0, 15, 15, FlxColor.TRANSPARENT, { thickness: 1, color: FlxColor.RED });
+		
+		tilePreview = new FlxSprite();
+		tilePreview.loadGraphic("assets/images/bricks.png", true, false, 16, 16);
+		//tilePreview.frame.
+		
+		add(waterMonitor);
+		
+		add(background);
+		add(collision);
+		add(player);
+		
+		add(reticle);
+		//add(foreground);
+	}
+	
+	//{ saving and loading
+	
 	public function newMap()
 	{
 		levelData = new LevelData();
@@ -51,7 +102,7 @@ class Level extends FlxGroup
 		levelData.collisionTileset = "assets/images/collisiontiles.png";
 		levelData.backgroundCSV = Assets.getText("assets/data/background.csv");
 		levelData.collisionCSV = Assets.getText("assets/data/collision.csv");
-		levelData.foregroundCSV = "";
+		//levelData.foregroundCSV = "";
 		levelData.waterLevel = 200;
 		setupFromData();
 	}
@@ -76,10 +127,10 @@ class Level extends FlxGroup
 		
 		var json:String = fileRef.data.toString();	
 		FlxG.log.add(json);
-		var data:LevelData = cast TJSON.parse(json);
-		
+		var data:LevelData = JSONExt.decode(json, LevelData);
+		levelData = data;
 		//TJSON.
-		//setupFromData();
+		setupFromData();
 	}
 	function setupFromData()
 	{
@@ -93,14 +144,15 @@ class Level extends FlxGroup
 	{
 		if (levelData == null)
 			levelData = new LevelData();
-		//levelData.collisionCSV = getCSV(collision);
-		levelData.collisionCSV = Assets.getText("assets/data/collision.csv");
+		levelData.collisionCSV = getCSV(collision);
+		//levelData.collisionCSV = Assets.getText("assets/data/collision.csv");
 		levelData.backgroundCSV = getCSV(background);
 		//collision.get
 		levelData.waterLevel = waterLevel;
 		
 		//collision.
-		var txt:String = TJSON.encode(levelData, new FancyStyle());
+		//TJSON.encode(
+		var txt:String = JSONExt.encode(levelData, new FancyStyle());
 		//var lol:FileReference = new FileReference();
 		//File.saveContent(path, txt);		
 		
@@ -136,47 +188,47 @@ class Level extends FlxGroup
 		//is this necessary?
 	}
 	
-	
+	//}
 	
 	public function new() 
 	{
 		super();		
 	}
 	
-	public function initialize() : Void {
+	function click()
+	{
+		var xIndex : Int = Std.int(FlxG.mouse.x / 16);
+		var yIndex : Int = Std.int(FlxG.mouse.y / 16);
 		
-		collision = new FlxTilemapExt();
-		//collision.visible = false;
-		background = new FlxTilemap();
-		foreground = new FlxTilemap();
-		//background.visible = false;
-		collision.loadMap(Assets.getText("assets/data/collision.csv"), "assets/images/collisiontiles.png", 16, 16);
-		background.loadMap(Assets.getText("assets/data/background.csv"), "assets/images/bricks.png", 16, 16);
-		
-		FlxG.camera.zoom = 2;	
-		FlxG.camera.width = Std.int(FlxG.camera.width / 2);
-		FlxG.camera.height = Std.int(FlxG.camera.height / 2);
-		
-		player = new Player(100, 150);		
-		FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
-		
-		waterLevel = 200;
-		waterMonitor = new FlxObject(0, waterLevel);
-		add(waterMonitor);
-		
-		add(background);
-		add(collision);
-		add(player);
-		//add(foreground);
+		//background.x++;
 	}
 	
 	override public function update():Void 
 	{
+		reticle.x = Std.int(FlxG.mouse.x / 16) * 16;
+		reticle.y = Std.int(FlxG.mouse.y / 16) * 16;
 		mirror.setY(Std.int(waterMonitor.getScreenXY().y));
 		if (FlxG.keys.justPressed.HOME)
 		{
 			FlxG.debugger.visible = !FlxG.debugger.visible;
 		}
+		if (FlxG.mouse.pressed)
+		{
+			click();
+		}
+		if (FlxG.keys.justPressed.PAGEUP)
+		{
+			currentLayer++;
+			if (currentLayer > FOREGROUND)
+				currentLayer = BACKGROUND;			
+		}
+		if (FlxG.keys.justPressed.PAGEDOWN)
+		{
+			currentLayer--;
+			if (currentLayer < BACKGROUND)
+				currentLayer = FOREGROUND;
+		}		
+		//if (FlxG.mouse.wheel > 0)
 		//FlxG.scaleMode = new PixelPerfectScaleMode();
 		FlxG.autoPause = false;
 		//FlxG.camera.

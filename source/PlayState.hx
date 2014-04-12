@@ -9,6 +9,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
 import flixel.util.FlxMath;
+import haxe.Serializer;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -43,6 +44,8 @@ class PlayState extends FlxState
 		level.mirror = mirror;
 		
 		super.create();
+		
+		
 	}
 	
 	/**
