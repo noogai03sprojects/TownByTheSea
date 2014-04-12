@@ -1,5 +1,6 @@
 package;
 import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 
@@ -9,32 +10,31 @@ import flixel.util.FlxColor;
  */
 class Player extends FlxSprite 
 {
-
+	var moveSpeed:Float = 200;
 	public function new(X:Float, Y:Float) 
 	{
 		super(X, Y);
 		makeGraphic(16, 20, FlxColor.FOREST_GREEN);
+		acceleration.y = 200;
 	}
 	
 	override public function update():Void 
 	{
-		var moveSpeed:Float = 5;
+		velocity.x = 0;
+		
 		if (FlxG.keys.pressed.RIGHT)
 		{
-			x += moveSpeed;
+			velocity.x = moveSpeed;
 		}
 		if (FlxG.keys.pressed.LEFT)
 		{
-			x -= moveSpeed;
+			velocity.x = -moveSpeed;
 		}
-		if (FlxG.keys.pressed.UP)
+		if (FlxG.keys.justPressed.UP && isTouching(FlxObject.FLOOR))
 		{
-			y -= moveSpeed;
+			velocity.y = -125;
 		}
-		if (FlxG.keys.pressed.DOWN)
-		{
-			y += moveSpeed;
-		}
+		
 		super.update();
 	}
 	

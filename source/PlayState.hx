@@ -15,7 +15,7 @@ import flixel.util.FlxMath;
  */
 class PlayState extends FlxState
 {
-	var player:Player;
+	
 	var mirror : CameraMirror;
 	
 	var potato:FlxSprite;
@@ -29,24 +29,18 @@ class PlayState extends FlxState
 	{
 		bgColor = FlxColor.BEIGE;
 		
-		potato = new FlxSprite(10, 100);
-		potato.loadGraphic("assets/images/potato.gif");
-		add(potato);
+		level = new Level();
+		level.initialize();	
+		//add(potato);	
 		
+		add(level);
 		if (FlxG.plugins.get(CameraMirror) == null)
 		{
 			mirror = new CameraMirror(FlxG.camera, 200, new ColorTransform(0.5, 0.5, 1), bgColor);
 			FlxG.plugins.add(mirror);
 		}
-		add(mirror.reflection);
-		
-		
-		
-		player = new Player(100, 150);
-		add(player);
-		
-		FlxG.camera.follow(player, FlxCamera.STYLE_LOCKON);
-		
+		add(mirror.reflection);	
+		level.mirror = mirror;
 		
 		super.create();
 	}
@@ -65,21 +59,33 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
-		//FlxG.camera.
-		super.update();
 		if (FlxG.keys.pressed.LBRACKET)
 		{
-			mirror.setY(mirror.getY() - 5);
+			
+			level.setWaterLevel(level.waterLevel - 2);
 		}
 		if (FlxG.keys.pressed.RBRACKET)
 		{
-			mirror.setY(mirror.getY() + 5);
+			
+			level.setWaterLevel(level.waterLevel + 2);
 		}
-		
-		if (FlxG.keys.justPressed.END)
+		if (FlxG.keys.justPressed.NUMPADSEVEN)
 		{
-			level.saveMap("testSave");
+			//FlxG.keys.
+			level.loadMap();
 		}
+		if (FlxG.keys.justPressed.NUMPADEIGHT)
+		{
+			//FlxG.keys.
+			level.saveMap();
+		}
+		if (FlxG.keys.justPressed.NUMPADNINE)
+		{
+			//FlxG.keys.
+			level.newMap();
+		}
+		//FlxG.camera.
 		
+		super.update();
 	}	
 }

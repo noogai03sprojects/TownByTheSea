@@ -37,8 +37,24 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#if flash
 		
+		className.set ("assets/data/background.csv", __ASSET__assets_data_background_csv);
+		type.set ("assets/data/background.csv", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/collision.csv", __ASSET__assets_data_collision_csv);
+		type.set ("assets/data/collision.csv", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/data/data-goes-here.txt", __ASSET__assets_data_data_goes_here_txt);
 		type.set ("assets/data/data-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/lo2l.json", __ASSET__assets_data_lo2l_json);
+		type.set ("assets/data/lo2l.json", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/lol.json", __ASSET__assets_data_lol_json);
+		type.set ("assets/data/lol.json", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/map.dam", __ASSET__assets_data_map_dam);
+		type.set ("assets/data/map.dam", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/map.dam.bak", __ASSET__assets_data_map_dam_bak);
+		type.set ("assets/data/map.dam.bak", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/tesetMap.json", __ASSET__assets_data_tesetmap_json);
+		type.set ("assets/data/tesetMap.json", Reflect.field (AssetType, "text".toUpperCase ()));
+		className.set ("assets/data/test.json", __ASSET__assets_data_test_json);
+		type.set ("assets/data/test.json", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/images/bricks.png", __ASSET__assets_images_bricks_png);
 		type.set ("assets/images/bricks.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/bricks.pyxel", __ASSET__assets_images_bricks_pyxel);
@@ -47,10 +63,6 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/collisiontiles.png", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/images/collisiontiles.pyxel", __ASSET__assets_images_collisiontiles_pyxel);
 		type.set ("assets/images/collisiontiles.pyxel", Reflect.field (AssetType, "binary".toUpperCase ()));
-		className.set ("assets/images/images-go-here.txt", __ASSET__assets_images_images_go_here_txt);
-		type.set ("assets/images/images-go-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
-		className.set ("assets/images/potato.gif", __ASSET__assets_images_potato_gif);
-		type.set ("assets/images/potato.gif", Reflect.field (AssetType, "image".toUpperCase ()));
 		className.set ("assets/music/music-goes-here.txt", __ASSET__assets_music_music_goes_here_txt);
 		type.set ("assets/music/music-goes-here.txt", Reflect.field (AssetType, "text".toUpperCase ()));
 		className.set ("assets/sounds/sounds-go-here.txt", __ASSET__assets_sounds_sounds_go_here_txt);
@@ -59,13 +71,19 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		#elseif html5
 		
+		addExternal("assets/data/background.csv", "text", "assets/data/background.csv");
+		addExternal("assets/data/collision.csv", "text", "assets/data/collision.csv");
 		addExternal("assets/data/data-goes-here.txt", "text", "assets/data/data-goes-here.txt");
+		addExternal("assets/data/lo2l.json", "text", "assets/data/lo2l.json");
+		addExternal("assets/data/lol.json", "text", "assets/data/lol.json");
+		addExternal("assets/data/map.dam", "text", "assets/data/map.dam");
+		addExternal("assets/data/map.dam.bak", "text", "assets/data/map.dam.bak");
+		addExternal("assets/data/tesetMap.json", "text", "assets/data/tesetMap.json");
+		addExternal("assets/data/test.json", "text", "assets/data/test.json");
 		addExternal("assets/images/bricks.png", "image", "assets/images/bricks.png");
 		addExternal("assets/images/bricks.pyxel", "binary", "assets/images/bricks.pyxel");
 		addExternal("assets/images/collisiontiles.png", "image", "assets/images/collisiontiles.png");
 		addExternal("assets/images/collisiontiles.pyxel", "binary", "assets/images/collisiontiles.pyxel");
-		addExternal("assets/images/images-go-here.txt", "text", "assets/images/images-go-here.txt");
-		addExternal("assets/images/potato.gif", "image", "assets/images/potato.gif");
 		addExternal("assets/music/music-goes-here.txt", "text", "assets/music/music-goes-here.txt");
 		addExternal("assets/sounds/sounds-go-here.txt", "text", "assets/sounds/sounds-go-here.txt");
 		
@@ -633,18 +651,30 @@ class DefaultAssetLibrary extends AssetLibrary {
 #if pixi
 #elseif flash
 
+@:keep class __ASSET__assets_data_background_csv extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_collision_csv extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_lo2l_json extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_lol_json extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_map_dam extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_map_dam_bak extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_tesetmap_json extends flash.utils.ByteArray { }
+@:keep class __ASSET__assets_data_test_json extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_bricks_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_bricks_pyxel extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_images_collisiontiles_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_collisiontiles_pyxel extends flash.utils.ByteArray { }
-@:keep class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray { }
-@:keep class __ASSET__assets_images_potato_gif extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_music_music_goes_here_txt extends flash.utils.ByteArray { }
 @:keep class __ASSET__assets_sounds_sounds_go_here_txt extends flash.utils.ByteArray { }
 
 
 #elseif html5
+
+
+
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 -lib flixel
 -lib openfl
 -lib flixel-addons
+-lib tjson
 -cp source
 -D tools=1.3.2
 -D fdb
