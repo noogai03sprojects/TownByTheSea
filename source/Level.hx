@@ -4,6 +4,7 @@ import flash.events.Event;
 import flash.geom.ColorTransform;
 import flash.net.URLLoader;
 import flixel.addons.tile.FlxTilemapExt;
+import flixel.atlas.FlxAtlas;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -82,7 +83,8 @@ class Level extends FlxGroup
 		tilePreview = new FlxSprite();
 		tilePreview.loadGraphic("assets/images/bricks.png", true, false, 16, 16);
 		//tilePreview.frame.
-		
+		//tilePreview.setF
+		var lol : FlxAtlas = new FlxAtlas("lol");
 		add(waterMonitor);
 		
 		add(background);
